@@ -1,8 +1,22 @@
+/*
+    Vignere Cipher
+    
+    This program implements the Vignere Cipher encryption and decryption methods.
+    In Vignere Cipher, a keyword is repeatedly added character by character to each alphabetic letter in the original message.
+    The addition is carried out using the ASCII codes for each of the characters, modulo 26 (the number of letters in the alphabet),
+    and the result is added to the code for the letter 'A' in the ASCII code sequence.
+    
+    Author: Adham Hamdy Hamed Abdulhameid
+    ID: 20230043
+    Date: 1:08 PM, 3/11/24, 1 Ramadan
+*/
+
 #include <iostream>
 #include <string>
 #include <cctype>
 using namespace std;
 
+// Function to convert characters in the given string to uppercase
 void upperCase(string &text)
 {
     for (int i = 0; i < text.size(); i++) {
@@ -10,6 +24,8 @@ void upperCase(string &text)
             text[i] = toupper(text[i]);
     }
 }
+
+// Function to validate user input choice
 void checkInput(string &c)
 {
     while (c.size() > 1)
@@ -24,6 +40,7 @@ void checkInput(string &c)
     }
 }
 
+// Function to validate the message size
 void checkMessage(string &m)
 {
     while (m.size() > 80)
@@ -33,6 +50,7 @@ void checkMessage(string &m)
     }
 }
 
+// Function to validate the key size and characters
 void checkKey(string &k)
 {
     here : {};
@@ -51,6 +69,7 @@ void checkKey(string &k)
     }
 }
 
+// Function to perform Vignere Cipher encryption
 void vignereCipher(string &message, string &keyword)
 {
     checkMessage(message);
@@ -60,23 +79,20 @@ void vignereCipher(string &message, string &keyword)
 
     int keyIndx = 0;
     for (int i = 0; i < message.size(); i++) {
-
         if (isalpha(message[i]))
         {
             int messageIndx = ((int) message[i] + (int) keyword[keyIndx]) % 26;
             message[i] = char ('A' + messageIndx);
-
         }
         keyIndx++;
-
         if (keyIndx == keyword.size())
             keyIndx = 0;
     }
 }
 
+// Function to perform Vignere Cipher decryption
 void vignereDecipher(string &message, string &keyword)
 {
-
     checkMessage(message);
     checkKey(keyword);
     upperCase(message);
@@ -84,20 +100,18 @@ void vignereDecipher(string &message, string &keyword)
 
     int keyIndx = 0;
     for (int i = 0; i < message.size(); i++) {
-
         if (isalpha(message[i]))
         {
             int messageIndx = (message[i] - keyword[keyIndx] + 26) % 26;
             message[i] = char ('A' + messageIndx);
-
         }
         keyIndx++;
-
         if (keyIndx == keyword.size())
             keyIndx = 0;
     }
 }
 
+// Function to run the program
 int runME()
 {
     string choice, message, key;
@@ -132,6 +146,7 @@ int runME()
     }
 }
 
+// Main function
 int main ()
 {
     runME();
